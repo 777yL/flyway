@@ -1,0 +1,55 @@
+parameters:
+- name: nexus_iq_scan
+  displayName: 'Perform NexusIQ scan'
+  type: boolean
+  default: true
+- name: publish_to_nexus_rm
+  displayName: 'Publish build artifact to Nexus Repo'
+  type: boolean
+  default: false
+- name: sonarqube_scan
+  displayName: 'Perform SonarQube analysis'
+  type: boolean
+  default: true
+- name: docker_build
+  displayName: 'Build Docker image and push to Container Registry'
+  type: boolean
+  default: true
+- name: aqua_scan
+  displayName: 'Run Aqua Security scan for the built Docker image (requires docker_build = true)'
+  type: boolean
+  default: false # DEBUG
+- name: deploy
+  displayName: 'Run deployment stages'
+  type: boolean
+  default: true
+- name: maven_build_opts
+  type: string
+  default: '-Xmx256m'
+- name: maven_sonarqube_opts
+  type: string
+  default: '-Xmx768m'
+
+trigger:
+- master
+
+resources:
+  repositories:
+  - repository: templates
+    type: git
+    name: ado-templates
+  - repository: config
+    type: git
+    name: infra-config
+
+extends:
+  template: pipelines/app-spring-boot.yml@templates
+  parameters:
+    maven_build_opts: ${{ parameters.maven_build_opts }}
+    maven_sonarqube_opts: ${{ parameters.maven_sonarqube_opts }}
+    nexus_iq_scan: ${{ parameters.nexus_iq_scan }}
+    sonarqube_scan: ${{ parameters.sonarqube_scan }}
+    publish_to_nexus_rm: ${{ parameters.publish_to_nexus_rm }}
+    docker_build: ${{ parameters.docker_build }}
+    aqua_scan: ${{ parameters.aqua_scan }}
+    deploy: ${{ parameters.deploy }}
