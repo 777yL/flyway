@@ -1,0 +1,3 @@
+INSERT INTO `account` VALUES (1, 46, 1000);
+INSERT INTO `account` VALUES (2, 45, 1000);
+INSERT INTO `account` VALUES (3, 46, 2000);

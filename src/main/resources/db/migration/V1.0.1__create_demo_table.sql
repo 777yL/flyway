@@ -1,0 +1,37 @@
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE `account`  (
+  `ID` int(11) NOT NULL COMMENT '编号',
+  `UID` int(11) NULL DEFAULT NULL COMMENT '用户编号',
+  `MONEY` double NULL DEFAULT NULL COMMENT '金额',
+  PRIMARY KEY (`ID`) USING BTREE,
+  INDEX `FK_Reference_8`(`UID`) USING BTREE,
+  CONSTRAINT `FK_Reference_8` FOREIGN KEY (`UID`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+DROP TABLE IF EXISTS `account1`;
+CREATE TABLE `account1`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `money` float NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role`  (
+  `ID` int(11) NOT NULL COMMENT '编号',
+  `ROLE_NAME` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色名称',
+  `ROLE_DESC` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色描述',
+  PRIMARY KEY (`ID`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名称',
+  `birthday` datetime NULL DEFAULT NULL COMMENT '生日',
+  `sex` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `address` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
